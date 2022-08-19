@@ -2,39 +2,75 @@ package br.ufpr.tads.luis.quizcidades;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Random;
 
 public class NewGameActivity extends AppCompatActivity {
     ImageView imageViewCidade;
+    TextView textViewResposta;
+    EditText editTextCidade;
+    Button buttonEnviar, buttonProxima;
     HashMap<String, String> cidades;
-    String[] cidade;
-    int contador;
+    String cidade;
+    int cont, pontuacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         imageViewCidade = findViewById(R.id.imageViewCidade);
-        contador = 0;
+        textViewResposta = findViewById(R.id.textViewResposta);
+        buttonEnviar = findViewById(R.id.buttonEnviar);
+        buttonProxima = findViewById(R.id.buttonProxima);
+        editTextCidade = findViewById(R.id.editTextCidade);
+
+        cont = 0;
+        pontuacao = 0;
         Intent it = getIntent();
+        //Recebe as cidades preenchidas pela tela anterior
         cidades = (HashMap<String, String>) it.getSerializableExtra("cidades");
+        if (cidades == null) {
+            Toast.makeText(this, "Erro ao encontrar imagens", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         cidade = sorteiaCidade(cidades);
-        Log.i("CIDADE", "onCreate: " + cidade[0]);
-        baixaCidade(cidade[1]);
+    }
+    //Busca no hashmap de forma aleatória uma cidade, baixa sua respectiva imagem e retorna o nome para posterior conferencia
+    public String sorteiaCidade(HashMap cidades) {
+        Object[] arrayKeys = cidades.keySet().toArray();
+        Object key = arrayKeys[new Random().nextInt(arrayKeys.length)];
+        String cidade = key.toString();
+        String imagem = (String) cidades.get(key.toString());
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        //Ja que o servidor com a imagem das cidades está fora, vamos utilizar uma API dummy de imagens
+//        String url = "http://200.236.3.202/Cidades/" + imagem;
+        String url = "https://picsum.photos/200";
+        MyTask task = new MyTask(imageViewCidade, progressDialog);
+        task.execute(url);
+        cont++;
+        Log.i("CIDADE", "sorteiaCidade: " + cidade);
+        return cidade;
     }
 
+    //Efetua a verificação da resposta informada, mostrando a respectiva imagem de erro ou sucesso
     public void verificaResposta(View view) {
-        EditText editTextCidade = findViewById(R.id.editTextCidade);
+        String mensagem = "";
+        int msgColor;
+
         if (editTextCidade.length() == 0) {
             Toast.makeText(this, "Digite sua resposta!", Toast.LENGTH_SHORT).show();
             return;
@@ -42,30 +78,53 @@ public class NewGameActivity extends AppCompatActivity {
 
         String resposta = editTextCidade.getText().toString();
         //confere a resposta do usuario
-        if (resposta.equalsIgnoreCase(cidade[0])) {
-            contador += 25;
+        if (resposta.equalsIgnoreCase(cidade)) {
+            //Soma 25 na pontução e exibe a mensagem de sucesso
+            pontuacao += 25;
+            mensagem = "Resposta Correta!";
+            msgColor = Color.GREEN;
+        } else {
+            //Exibe a mensagem em vermelho com a resposta correta
+            mensagem = "Resposta Errada!\nA resposta correta é: " + cidade;
+            msgColor = Color.RED;
+        }
+        textViewResposta.setText(mensagem);
+        textViewResposta.setTextColor(msgColor);
+
+        //Desabilita e esconde campos de preenchimento
+        editTextCidade.setEnabled(false);
+        buttonEnviar.setEnabled(false);
+        //Habilita o botão de proxima pergunta
+        buttonProxima.setEnabled(true);
+        buttonProxima.setVisibility(View.VISIBLE);
+    }
+
+
+    public void proximaPergunta(View view) {
+        if (cont >=4) {
+            //Chama a intent de fim de jogo para exibir a pontuação
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("pontuacao", pontuacao);
+            bundle.putSerializable("cidades", cidades);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
         }
         else {
-
+            //Desabilita o botão de proxima pergunta
+            buttonProxima.setEnabled(false);
+            buttonProxima.setVisibility(View.INVISIBLE);
+            //Limpa os campos de preenchimento e resposta
+            editTextCidade.setEnabled(true);
+            editTextCidade.setText("");
+            textViewResposta.setText("");
+            //Habilita o botão de enviar a resposta
+            buttonEnviar.setEnabled(true);
+            //Sorteia uma nova cidade para o usuário
+            cidade = sorteiaCidade(cidades);
         }
 
     }
 
-    //Faz o download da imagem da cidade
-    public void baixaCidade (String imageName) {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-//        String url = "http://200.236.3.202/Cidades/" + cidade[1];
-        String url = "https://picsum.photos/200";
-        MyTask task = new MyTask(imageViewCidade, progressDialog);
-        task.execute(url);
-    }
-    //Busca no hashmap de forma aleatória uma cidade, retornando o nome da cidade e da imagem que devera ser baixada
-    public String[] sorteiaCidade(HashMap cidades) {
-        String[] cidade = new String[2];
-        Object[] arrayKeys = cidades.keySet().toArray();
-        Object key = arrayKeys[new Random().nextInt(arrayKeys.length)];
-        cidade[0] = (String) cidades.get(key.toString());
-        cidade[1] = key.toString();
-        return cidade;
-    }
 }

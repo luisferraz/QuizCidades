@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCBABA"
     tools:context=".NewGameActivity">
 
     <ImageView
@@ -59,6 +60,7 @@
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:onClick="verificaResposta"
         android:text="Enviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,9 +71,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewCidade"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonProxima"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonProxima"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="152dp"
+        android:onClick="proximaPergunta"
+        android:text="Próxima"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

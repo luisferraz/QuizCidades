@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //Chama a intent de inicio de jogo
     public void iniciar(View view) {
         HashMap<String, String> cidades = preencheCidades();
         Intent it = new Intent(getApplicationContext(), NewGameActivity.class);
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(it);
     }
 
+    //Preenche o Hashmap com as cidades possiveis e suas respectivas imagens
     public HashMap<String, String> preencheCidades() {
         HashMap<String, String> cidades = new HashMap<>();
         cidades.put("Barcelona", "01_barcelona");
