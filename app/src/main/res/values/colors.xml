@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="platinum">#E0E1DD</color>
+    <color name="shadow_blue">#778DA9</color>
+    <color name="bdazzled_blue">#415A77</color>
+    <color name="oxford_blue">#1B263B</color>
+    <color name="right_black">#0D1B2A</color>
+    <color name="right_answer">#386641</color>
+    <color name="wrong_answer">#BC4749</color>
 </resources>

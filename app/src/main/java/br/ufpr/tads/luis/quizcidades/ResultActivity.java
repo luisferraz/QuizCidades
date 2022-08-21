@@ -1,6 +1,7 @@
 package br.ufpr.tads.luis.quizcidades;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -30,9 +31,9 @@ public class ResultActivity extends AppCompatActivity {
 
         textViewPontuacao.setText(String.valueOf(pontuacao));
         if (pontuacao < 100) {
-            textViewPontuacao.setTextColor(Color.RED);
+            textViewPontuacao.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.wrong_answer));
         } else {
-            textViewPontuacao.setTextColor(Color.GREEN);
+            textViewPontuacao.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.right_answer));
         }
 
     }

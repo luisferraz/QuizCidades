@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCBABA"
+    android:background="@color/platinum"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,6 +14,7 @@
         android:layout_marginTop="110dp"
         android:gravity="center"
         android:text="Quiz Cidades"
+        android:textColor="@color/right_black"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,10 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
+        android:backgroundTint="@color/oxford_blue"
         android:gravity="center"
         android:onClick="iniciar"
         android:text="Iniciar jogo!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:rippleColor="@color/bdazzled_blue" />
 </androidx.constraintlayout.widget.ConstraintLayout>

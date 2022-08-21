@@ -2,6 +2,7 @@ package br.ufpr.tads.luis.quizcidades;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,8 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
+import androidx.core.content.ContextCompat;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -82,14 +82,14 @@ public class NewGameActivity extends AppCompatActivity {
             //Soma 25 na pontução e exibe a mensagem de sucesso
             pontuacao += 25;
             mensagem = "Resposta Correta!";
-            msgColor = Color.GREEN;
+            msgColor = R.color.right_answer;
         } else {
             //Exibe a mensagem em vermelho com a resposta correta
             mensagem = "Resposta Errada!\nA resposta correta é: " + cidade;
-            msgColor = Color.RED;
+            msgColor =  R.color.wrong_answer;
         }
         textViewResposta.setText(mensagem);
-        textViewResposta.setTextColor(msgColor);
+        textViewResposta.setTextColor(ContextCompat.getColor(getApplicationContext(), msgColor));
 
         //Desabilita e esconde campos de preenchimento
         editTextCidade.setEnabled(false);
