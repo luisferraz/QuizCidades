@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -50,7 +51,7 @@ public class NewGameActivity extends AppCompatActivity {
         cidade = sorteiaCidade(cidades);
     }
     //Busca no hashmap de forma aleatória uma cidade, baixa sua respectiva imagem e retorna o nome para posterior conferencia
-    public String sorteiaCidade(HashMap cidades) {
+    public String sorteiaCidade(@NonNull HashMap cidades) {
         Object[] arrayKeys = cidades.keySet().toArray();
         Object key = arrayKeys[new Random().nextInt(arrayKeys.length)];
         String cidade = key.toString();
@@ -58,7 +59,8 @@ public class NewGameActivity extends AppCompatActivity {
         ProgressDialog progressDialog = new ProgressDialog(this);
         //Ja que o servidor com a imagem das cidades está fora, vamos utilizar uma API dummy de imagens
 //        String url = "http://200.236.3.202/Cidades/" + imagem;
-        String url = "https://picsum.photos/200";
+//        String url = "https://picsum.photos/200";
+        String url = "https://www.dropbox.com/s/" + imagem + "?raw=1";
         MyTask task = new MyTask(imageViewCidade, progressDialog);
         task.execute(url);
         cont++;

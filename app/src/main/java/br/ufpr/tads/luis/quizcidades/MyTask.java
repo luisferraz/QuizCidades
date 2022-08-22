@@ -27,6 +27,7 @@ public class MyTask extends AsyncTask<String, Void, Bitmap> {
     protected void onPreExecute() {
         super.onPreExecute();
         this.progress.setMessage("Buscando cidade...");
+        this.progress.setCancelable(false);
         this.progress.show();
     }
 
@@ -44,8 +45,6 @@ public class MyTask extends AsyncTask<String, Void, Bitmap> {
         try {
             URL url = new URL(stringURL);
             InputStream inputStream = url.openStream();
-//            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-//            inputStream = connection.getInputStream();
             myImage = BitmapFactory.decodeStream(inputStream);
         } catch (Exception e) {
             Log.e("GET", "doInBackground: GET IMAGEM - " + e.getMessage(), e);
