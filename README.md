@@ -23,7 +23,8 @@ Aplicação Android desenvolvida para a disciplina DS151 - Desenvolvimento Para 
 * **Luis Augusto Ferraz de Souza**
 
 ## :exclamation: Importante
-* O servidor do qual devia-se baixar as imagens não está disponível, portanto estamos acessando uma API de imagens dummy para o funcionamento da aplicação.
+* ~~O servidor do qual devia-se baixar as imagens não está disponível, portanto estamos acessando uma API de imagens dummy para o funcionamento da aplicação.~~
+* Aplicação alterada para utilizar os links das imagens hopedadas no Dropbox conforme repassado pelo professor.
 
 ## 📄 Exemplo
 |![QuizCidades-home](https://user-images.githubusercontent.com/22084121/185813267-2c63166a-099f-42ca-8f2c-8b118a06cd3d.png)|![QuizCidades-jogo](https://user-images.githubusercontent.com/22084121/185813275-5a9247a8-9011-49f3-8e54-f4caf53f5ddb.png)|![QuizCidades-final](https://user-images.githubusercontent.com/22084121/185813276-da66fcde-7bb4-42a4-a624-6e4f31f2c349.png)
